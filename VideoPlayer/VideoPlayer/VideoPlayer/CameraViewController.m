@@ -9,6 +9,8 @@
 #import "CameraViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <Assetslibrary/AssetsLibrary.h>
+#import <CoreImage/CoreImage.h>
+#import "FilterViewController.h"
 
 @interface CameraViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -20,11 +22,13 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @implementation CameraViewController
 
 @synthesize imageView;
-@synthesize image;
+@synthesize img;
 @synthesize takePictureButton;
 @synthesize moviePlayerController;
 @synthesize movieURL;
 @synthesize lastChosenMediaType;
+@synthesize filterButton;
+@synthesize takePictureFromLibrary;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,12 +45,18 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
         takePictureButton.hidden = YES;
     }
     imageFrame = imageView.frame;
+    //imageView.image = self.img;
+    filterButton.hidden = YES;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    [self updateDisplay];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
     [self updateDisplay];
 }
 
@@ -69,12 +79,24 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 -(void)shootPictureOrVideo:(id)sender{
     [self getMediaFromSource:UIImagePickerControllerSourceTypeCamera];
     type = 1;
+    filterButton.hidden = NO;
+    takePictureButton.hidden = YES;
+    takePictureFromLibrary.hidden = YES;
     
 }
 
 -(void)selectExistingPictureOrVideo:(id)sender{
     [self getMediaFromSource:UIImagePickerControllerSourceTypePhotoLibrary];
     type = 0;
+    filterButton.hidden = NO;
+    takePictureButton.hidden = YES;
+    takePictureFromLibrary.hidden = YES;
+}
+
+-(void)acceptFilters:(id)sender{
+    FilterViewController *controller = [FilterViewController new];
+    controller.image = self.img;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark UIImagePickerController delegate methods
@@ -84,7 +106,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
         UIImage *chosenImage = [info objectForKey:UIImagePickerControllerEditedImage];
         UIImage *shrunkenImage = shrinkImage(chosenImage, imageFrame.size);
-        self.image = shrunkenImage;
+        self.img = shrunkenImage;
     }
     else if ([lastChosenMediaType isEqual:(NSString *)kUTTypeMovie]) {
         self.movieURL = [info objectForKey:UIImagePickerControllerMediaURL];
@@ -99,7 +121,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
             
         }
         else if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
-            UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil);	
+            UIImageWriteToSavedPhotosAlbum(self.img, nil, nil, nil);	
         }
     }
 [picker dismissModalViewControllerAnimated:YES];
@@ -122,14 +144,13 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
     
     CGContextRelease(contex);
     CGImageRelease(shrunken);
-    
     return final;
     
 }
 
 -(void)updateDisplay{
     if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
-        imageView.image = image;
+        imageView.image = img;
         imageView.hidden = NO;
         moviePlayerController.view.hidden = YES;
     }
@@ -165,5 +186,13 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
         [alert show];
     }
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([[segue identifier] isEqualToString:@"FilterSegue"]) {
+        [[segue destinationViewController] setImage:self.img];
+    }
+}
+
+
 
 @end

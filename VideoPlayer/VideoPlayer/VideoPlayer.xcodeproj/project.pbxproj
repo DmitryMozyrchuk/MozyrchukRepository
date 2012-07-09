@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F04CE8B15AAC1A8006D0809 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F04CE8A15AAC1A8006D0809 /* CoreImage.framework */; };
+		3F04CE8F15AAC976006D0809 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F04CE8E15AAC976006D0809 /* FilterViewController.m */; };
+		3F04CE9215AACA11006D0809 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F04CE9115AACA11006D0809 /* FilterCell.m */; };
+		3F04CE9C15AAE244006D0809 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F04CE9B15AAE244006D0809 /* Filter.m */; };
+		3F04CE9F15AAE5C2006D0809 /* SepiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F04CE9E15AAE5C2006D0809 /* SepiaViewController.m */; };
+		3F04CEAA15AAFE7C006D0809 /* MonochromeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F04CEA915AAFE7B006D0809 /* MonochromeViewController.m */; };
 		3F791DB815A6CBDA00479283 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F791DB715A6CBDA00479283 /* UIKit.framework */; };
 		3F791DBA15A6CBDA00479283 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F791DB915A6CBDA00479283 /* Foundation.framework */; };
 		3F791DBC15A6CBDA00479283 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F791DBB15A6CBDA00479283 /* CoreGraphics.framework */; };
@@ -25,6 +31,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F04CE8A15AAC1A8006D0809 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		3F04CE8D15AAC976006D0809 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		3F04CE8E15AAC976006D0809 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		3F04CE9015AACA11006D0809 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
+		3F04CE9115AACA11006D0809 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
+		3F04CE9A15AAE244006D0809 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		3F04CE9B15AAE244006D0809 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
+		3F04CE9D15AAE5C2006D0809 /* SepiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SepiaViewController.h; sourceTree = "<group>"; };
+		3F04CE9E15AAE5C2006D0809 /* SepiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SepiaViewController.m; sourceTree = "<group>"; };
+		3F04CEA815AAFE7B006D0809 /* MonochromeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonochromeViewController.h; sourceTree = "<group>"; };
+		3F04CEA915AAFE7B006D0809 /* MonochromeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonochromeViewController.m; sourceTree = "<group>"; };
 		3F791DB315A6CBDA00479283 /* VideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F791DB715A6CBDA00479283 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3F791DB915A6CBDA00479283 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F04CE8B15AAC1A8006D0809 /* CoreImage.framework in Frameworks */,
 				3F791DE215A6FDC300479283 /* AssetsLibrary.framework in Frameworks */,
 				3F791DD915A6D45F00479283 /* MobileCoreServices.framework in Frameworks */,
 				3F791DD715A6D42A00479283 /* MediaPlayer.framework in Frameworks */,
@@ -86,6 +104,7 @@
 		3F791DB615A6CBDA00479283 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F04CE8A15AAC1A8006D0809 /* CoreImage.framework */,
 				3F791DE115A6FDC300479283 /* AssetsLibrary.framework */,
 				3F791DD415A6CBF000479283 /* AVFoundation.framework */,
 				3F791DD615A6D42A00479283 /* MediaPlayer.framework */,
@@ -100,6 +119,16 @@
 		3F791DBD15A6CBDA00479283 /* VideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				3F04CEA815AAFE7B006D0809 /* MonochromeViewController.h */,
+				3F04CEA915AAFE7B006D0809 /* MonochromeViewController.m */,
+				3F04CE9D15AAE5C2006D0809 /* SepiaViewController.h */,
+				3F04CE9E15AAE5C2006D0809 /* SepiaViewController.m */,
+				3F04CE9A15AAE244006D0809 /* Filter.h */,
+				3F04CE9B15AAE244006D0809 /* Filter.m */,
+				3F04CE9015AACA11006D0809 /* FilterCell.h */,
+				3F04CE9115AACA11006D0809 /* FilterCell.m */,
+				3F04CE8D15AAC976006D0809 /* FilterViewController.h */,
+				3F04CE8E15AAC976006D0809 /* FilterViewController.m */,
 				3F791DDA15A6D4C000479283 /* CameraViewController.h */,
 				3F791DDB15A6D4C000479283 /* CameraViewController.m */,
 				3F791DC615A6CBDA00479283 /* AppDelegate.h */,
@@ -193,6 +222,11 @@
 				3F791DC815A6CBDA00479283 /* AppDelegate.m in Sources */,
 				3F791DCE15A6CBDA00479283 /* ViewController.m in Sources */,
 				3F791DDC15A6D4C000479283 /* CameraViewController.m in Sources */,
+				3F04CE8F15AAC976006D0809 /* FilterViewController.m in Sources */,
+				3F04CE9215AACA11006D0809 /* FilterCell.m in Sources */,
+				3F04CE9C15AAE244006D0809 /* Filter.m in Sources */,
+				3F04CE9F15AAE5C2006D0809 /* SepiaViewController.m in Sources */,
+				3F04CEAA15AAFE7C006D0809 /* MonochromeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +344,7 @@
 				3F791DD315A6CBDA00479283 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
