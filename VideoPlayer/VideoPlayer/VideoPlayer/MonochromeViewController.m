@@ -8,6 +8,7 @@
 
 #import "MonochromeViewController.h"
 #import "Filter.h"
+#import "VideoConverter.h"
 
 @interface MonochromeViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -23,6 +24,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize imageView;
 @synthesize img;
 @synthesize selfImage;
+@synthesize typeOfMedia;
+@synthesize array;
+@synthesize movieURL;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,8 +43,15 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 - (void)viewDidLoad
 {
-    self.selfImage = shrinkImage(self.img, imageView.frame.size);
-    self.imageView.image = [Filter makeMonochromeImage:self.selfImage withRedColor:sliderRed.value greenColor:sliderGreen.value blueColor:sliderBlue.value];
+    if (typeOfMedia == 0) {
+        self.selfImage = shrinkImage(self.img, imageView.frame.size);
+        self.imageView.image = [Filter makeMonochromeImage:self.selfImage withRedColor:sliderRed.value greenColor:sliderGreen.value blueColor:sliderBlue.value];
+    }
+    else {
+        array = [VideoConverter convertVideoToImageArray:self.movieURL];
+        self.selfImage = shrinkImage([array objectAtIndex:0], imageView.frame.size);
+        self.imageView.image = [Filter makeMonochromeImage:self.selfImage withRedColor:sliderRed.value greenColor:sliderGreen.value blueColor:sliderBlue.value];
+    }
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -58,8 +69,19 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([[segue identifier] isEqualToString:@"ApplyMonochromeSegue"]) {
-        self.img = [Filter makeMonochromeImage:self.selfImage withRedColor:sliderRed.value greenColor:sliderGreen.value blueColor:sliderBlue.value];
-        UIImageWriteToSavedPhotosAlbum(self.img, nil, nil, nil);
+        if (typeOfMedia == 0) {
+            self.img = [Filter makeMonochromeImage:self.selfImage withRedColor:sliderRed.value greenColor:sliderGreen.value blueColor:sliderBlue.value];
+            UIImageWriteToSavedPhotosAlbum(self.img, nil, nil, nil);
+        }
+        else {
+            NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+            for (int i = 0; i< array.count; i++) {
+                UIImage *filteredImage = [Filter makeMonochromeImage:self.selfImage withRedColor:sliderRed.value greenColor:sliderGreen.value blueColor:sliderBlue.value];
+                [resultArray addObject:filteredImage];
+            }
+            [VideoConverter writeImageAsMovie:resultArray size:[self.view frame].size duration:array.count];
+            
+        }
         //[[segue destinationViewController] viewWillAppear:YES];
     }
 }
@@ -78,5 +100,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
     return final;
     
 }
+
+
 
 @end

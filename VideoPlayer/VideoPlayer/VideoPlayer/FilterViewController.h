@@ -10,10 +10,14 @@
 
 @interface FilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>{
     UIImage *image;
+    NSString *type;
+    NSURL *movieURL;
 }
 
 @property (nonatomic,retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) NSArray *filters;
+@property (nonatomic, retain) NSString *type;
+@property (nonatomic, retain) NSURL *movieURL;
 
 @end

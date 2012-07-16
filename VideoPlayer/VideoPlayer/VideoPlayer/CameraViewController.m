@@ -7,9 +7,7 @@
 //
 
 #import "CameraViewController.h"
-#import <MobileCoreServices/UTCoreTypes.h>
-#import <Assetslibrary/AssetsLibrary.h>
-#import <CoreImage/CoreImage.h>
+#import "InsertImageViewController.h"
 #import "FilterViewController.h"
 
 @interface CameraViewController ()
@@ -29,6 +27,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize lastChosenMediaType;
 @synthesize filterButton;
 @synthesize takePictureFromLibrary;
+@synthesize insertImageToVideoButton;
+@synthesize liveFiltersButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,10 +43,12 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         takePictureButton.hidden = YES;
+        liveFiltersButton.hidden = YES;
     }
     imageFrame = imageView.frame;
     //imageView.image = self.img;
     filterButton.hidden = YES;
+    insertImageToVideoButton.hidden = YES;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -58,6 +60,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 -(void)viewWillAppear:(BOOL)animated{
     [self updateDisplay];
+    
 }
 
 - (void)viewDidUnload
@@ -65,6 +68,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     self.imageView = nil;
     self.takePictureButton = nil;
     self.moviePlayerController = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -78,26 +82,28 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 -(void)shootPictureOrVideo:(id)sender{
     [self getMediaFromSource:UIImagePickerControllerSourceTypeCamera];
-    type = 1;
+    typeOfMedia = 1;
     filterButton.hidden = NO;
     takePictureButton.hidden = YES;
     takePictureFromLibrary.hidden = YES;
+    if ([lastChosenMediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        insertImageToVideoButton.hidden = NO;
+    }
     
 }
 
 -(void)selectExistingPictureOrVideo:(id)sender{
     [self getMediaFromSource:UIImagePickerControllerSourceTypePhotoLibrary];
-    type = 0;
+    typeOfMedia = 0;
     filterButton.hidden = NO;
     takePictureButton.hidden = YES;
     takePictureFromLibrary.hidden = YES;
+    if ([lastChosenMediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        insertImageToVideoButton.hidden = NO;
+    }
 }
 
--(void)acceptFilters:(id)sender{
-    FilterViewController *controller = [FilterViewController new];
-    controller.image = self.img;
-    [self.navigationController pushViewController:controller animated:YES];
-}
+
 
 #pragma mark UIImagePickerController delegate methods
 
@@ -110,19 +116,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     }
     else if ([lastChosenMediaType isEqual:(NSString *)kUTTypeMovie]) {
         self.movieURL = [info objectForKey:UIImagePickerControllerMediaURL];
-    }
-    if (type == 1) {
-        if ([lastChosenMediaType isEqual:(NSString *)kUTTypeMovie]) {
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:self.movieURL])
-            {
-                [library writeVideoAtPathToSavedPhotosAlbum:self.movieURL completionBlock:^(NSURL *assetURL, NSError *error){}];
-            } 
-            
-        }
-        else if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
-            UIImageWriteToSavedPhotosAlbum(self.img, nil, nil, nil);	
-        }
     }
 [picker dismissModalViewControllerAnimated:YES];
 }
@@ -161,6 +154,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
         moviePlayerController.view.clipsToBounds = YES;
         [self.view addSubview:moviePlayerController.view];
         imageView.hidden =YES;
+        insertImageToVideoButton.hidden = NO;
     }
 }
 
@@ -173,9 +167,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
         picker.allowsEditing = YES;
         picker.sourceType = sourceType;
         [self presentModalViewController:picker animated:YES]; 
-        /*if (sourceType == 1) {
-            
-        }*/
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error accessing media" 
@@ -189,10 +180,24 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([[segue identifier] isEqualToString:@"FilterSegue"]) {
-        [[segue destinationViewController] setImage:self.img];
+        if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
+            [[segue destinationViewController] setImage:self.img];
+            [[segue destinationViewController] setType:@"Photo"];
+        }
+        else {
+            [[segue destinationViewController] setMovieURL:self.movieURL];
+            [[segue destinationViewController] setType:@"Video"];
+        }
+    }
+    else if ([[segue identifier] isEqualToString:@"InsertImageSegue"]) {
+        [[segue destinationViewController] setVideoPath:self.movieURL];
     }
 }
 
-
+-(void)canceled:(id)sender{
+    filterButton.hidden = YES;
+    takePictureButton.hidden = NO;
+    takePictureFromLibrary.hidden = NO;
+}
 
 @end

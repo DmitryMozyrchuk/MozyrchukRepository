@@ -20,6 +20,8 @@
 @synthesize tableView;
 @synthesize image;
 @synthesize filters;
+@synthesize type;
+@synthesize movieURL;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,7 +78,14 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    [[segue destinationViewController] setImg:self.image];
+    if ([self.type isEqualToString:@"Photo"]) {
+        [[segue destinationViewController] setImg:self.image];
+        [[segue destinationViewController] setTypeOfMedia:0];
+    }
+    else {
+        [[segue destinationViewController] setMovieURL:self.movieURL];
+        [[segue destinationViewController] setTypeOfMedia:1];
+    }
 }
 @end
 
