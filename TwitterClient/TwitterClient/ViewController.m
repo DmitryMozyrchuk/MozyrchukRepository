@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "SA_OAuthTwitterEngine.h"
 #import "TwittViewController.h"
+#import "LastTwitViewController.h"
+#import "SelfViewController.h"
 
 @interface ViewController ()
 
@@ -18,6 +20,8 @@
 
 @synthesize loginButton;
 @synthesize tweetButton;
+@synthesize recentTweetsButton;
+@synthesize selfInformationButton;
 
 #define kOAuthConsumerKey        @"U0Sv1cxioIVQgEc2gVtNyw"         //REPLACE With Twitter App OAuth Key    
 #define kOAuthConsumerSecret    @"YBEkDJWXHdvARGZfYPgNthR4iYbdjs1PwZmKERROU0"     //REPLACE With Twitter App OAuth Secret
@@ -25,6 +29,8 @@
 - (void)viewDidLoad
 {
     tweetButton.hidden = YES;
+    recentTweetsButton.hidden = YES;
+    selfInformationButton.hidden = YES;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -45,6 +51,7 @@
 -(IBAction)updateTwitter:(id)sender  
 {  
     TwittViewController *controller = [[TwittViewController alloc] initWithNibName:@"TwittViewController" bundle:[NSBundle mainBundle]];
+    [controller set_engine:_engine];
     [self presentModalViewController:controller animated:YES];
     //Twitter Integration Code Goes Here  
     
@@ -55,21 +62,38 @@
         _engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];  
         _engine.consumerKey    = kOAuthConsumerKey;  
         _engine.consumerSecret = kOAuthConsumerSecret;
+
     }
     
-    if(![_engine isAuthorized]){  
+    if(![_engine isAuthorized]){
         UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_engine delegate:self];  
         
         if (controller){  
             [self presentModalViewController: controller animated: YES];  
             loginButton.hidden = YES;
             tweetButton.hidden = NO;
+            recentTweetsButton.hidden = NO;
+            selfInformationButton.hidden = NO;
         }  
     }
     else if (_engine && [_engine isAuthorized]) {
         loginButton.hidden = YES;
         tweetButton.hidden = NO;
+        recentTweetsButton.hidden = NO;
+        selfInformationButton.hidden = NO;
     } 
+}
+
+-(void)recentTweets:(id)sender{
+    LastTwitViewController *controller = [[LastTwitViewController alloc] initWithNibName:@"LastTwitViewController" bundle:[NSBundle mainBundle]];
+    [controller set_engine:_engine];
+    [self presentModalViewController:controller animated:YES];
+}
+
+-(void)infoButtonPressed:(id)sender{
+    SelfViewController *controller = [[SelfViewController alloc] initWithNibName:@"SelfViewController" bundle:[NSBundle mainBundle]];
+    [controller set_engine:_engine];
+    [self presentModalViewController:controller animated:YES ];
 }
 
 #pragma mark SA_OAuthTwitterEngineDelegate  

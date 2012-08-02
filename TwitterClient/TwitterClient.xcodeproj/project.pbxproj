@@ -38,6 +38,10 @@
 		3FB385FF15C962B8001A8505 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FB385FE15C962B8001A8505 /* libxml2.dylib */; };
 		3FB3860315C96642001A8505 /* TwittViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB3860115C96642001A8505 /* TwittViewController.m */; };
 		3FB3860415C96642001A8505 /* TwittViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB3860215C96642001A8505 /* TwittViewController.xib */; };
+		3FE239E815CA629400059EDD /* LastTwitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE239E615CA629400059EDD /* LastTwitViewController.m */; };
+		3FE239E915CA629400059EDD /* LastTwitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FE239E715CA629400059EDD /* LastTwitViewController.xib */; };
+		3FE239FE15CA8E1100059EDD /* SelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE239FC15CA8E1100059EDD /* SelfViewController.m */; };
+		3FE239FF15CA8E1100059EDD /* SelfViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FE239FD15CA8E1100059EDD /* SelfViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +117,12 @@
 		3FB3860015C96642001A8505 /* TwittViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwittViewController.h; sourceTree = "<group>"; };
 		3FB3860115C96642001A8505 /* TwittViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwittViewController.m; sourceTree = "<group>"; };
 		3FB3860215C96642001A8505 /* TwittViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwittViewController.xib; sourceTree = "<group>"; };
+		3FE239E515CA629400059EDD /* LastTwitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastTwitViewController.h; sourceTree = "<group>"; };
+		3FE239E615CA629400059EDD /* LastTwitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastTwitViewController.m; sourceTree = "<group>"; };
+		3FE239E715CA629400059EDD /* LastTwitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LastTwitViewController.xib; sourceTree = "<group>"; };
+		3FE239FB15CA8E1100059EDD /* SelfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfViewController.h; sourceTree = "<group>"; };
+		3FE239FC15CA8E1100059EDD /* SelfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfViewController.m; sourceTree = "<group>"; };
+		3FE239FD15CA8E1100059EDD /* SelfViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelfViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +172,9 @@
 		3FB3859715C96286001A8505 /* TwitterClient */ = {
 			isa = PBXGroup;
 			children = (
+				3FE239E515CA629400059EDD /* LastTwitViewController.h */,
+				3FE239E615CA629400059EDD /* LastTwitViewController.m */,
+				3FE239E715CA629400059EDD /* LastTwitViewController.xib */,
 				3FB3860015C96642001A8505 /* TwittViewController.h */,
 				3FB3860115C96642001A8505 /* TwittViewController.m */,
 				3FB3860215C96642001A8505 /* TwittViewController.xib */,
@@ -171,6 +184,9 @@
 				3FB385A415C96286001A8505 /* ViewController.m */,
 				3FB385A615C96286001A8505 /* ViewController.xib */,
 				3FB3859815C96286001A8505 /* Supporting Files */,
+				3FE239FB15CA8E1100059EDD /* SelfViewController.h */,
+				3FE239FC15CA8E1100059EDD /* SelfViewController.m */,
+				3FE239FD15CA8E1100059EDD /* SelfViewController.xib */,
 			);
 			path = TwitterClient;
 			sourceTree = "<group>";
@@ -337,6 +353,8 @@
 				3FB385EB15C962A4001A8505 /* jQueryInjectLandscape.txt in Resources */,
 				3FB385FD15C962A4001A8505 /* twitter_load.png in Resources */,
 				3FB3860415C96642001A8505 /* TwittViewController.xib in Resources */,
+				3FE239E915CA629400059EDD /* LastTwitViewController.xib in Resources */,
+				3FE239FF15CA8E1100059EDD /* SelfViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +385,8 @@
 				3FB385FB15C962A4001A8505 /* SA_OAuthTwitterController.m in Sources */,
 				3FB385FC15C962A4001A8505 /* SA_OAuthTwitterEngine.m in Sources */,
 				3FB3860315C96642001A8505 /* TwittViewController.m in Sources */,
+				3FE239E815CA629400059EDD /* LastTwitViewController.m in Sources */,
+				3FE239FE15CA8E1100059EDD /* SelfViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +508,7 @@
 				3FB385AD15C96286001A8505 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

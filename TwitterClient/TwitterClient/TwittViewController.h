@@ -21,6 +21,7 @@
 @property (nonatomic, retain) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *saveButton;
 @property (nonatomic, retain) IBOutlet UITextView *tView;
+@property (nonatomic, retain) SA_OAuthTwitterEngine    *_engine;;
 
 -(IBAction)save:(id)sender;
 

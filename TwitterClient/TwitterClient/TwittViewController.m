@@ -18,6 +18,7 @@
 @synthesize saveButton;
 @synthesize navBar;
 @synthesize tView;
+@synthesize _engine;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +33,15 @@
 {
     
     [super viewDidLoad];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self
+                                                                       action:@selector(backButtonAction)];
+    self.navBar.topItem.leftBarButtonItem = backButton;
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)backButtonAction{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewDidUnload
